@@ -25,7 +25,7 @@ class Producto(models.Model):
     descripcion = models.CharField(db_column='Descripcion', max_length=255, blank=True, null=True)
     imagen = models.ImageField(upload_to='productos/', blank=True, null=True)
     fecha_registro = models.DateField(db_column='Fecha_Registro', blank=True, null=True)
-    unidad_de_medida = models.CharField(max_length=2, blank=True, null=True)
+    unidad_de_medida = models.CharField(max_length=10, blank=True)
 
     def __str__(self):
         return self.nombre
