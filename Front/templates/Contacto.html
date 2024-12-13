@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block mi-contenido %}
+    {% include 'barra-navegación.html' %}
+    <style>
+        @media (max-width: 440px) {
+            body{
+                background-size: 100% auto; /* Fondo ajustado al ancho de pantalla */
+                padding: 28px 0px 0px 0px;/* Elimina paddings innecesarios */
+            }
+        }
+
+    </style>
+    <div class="texto">
+        <P class="p">"Transforma la manera en que gestionas a tus proveedores: optimiza tus procesos, 
+            mejora tus relaciones comerciales y agiliza tu flujo de trabajo con nuestra plataforma innovadora."
+        </P>
+    </div>
+
+<div class="redes-sociales">
+    <div class="column">
+        <div class="co">
+        <div class="item1">
+            <a href=""><img class="image" src="../static/image/Facebook.svg" alt=""></a>
+            <p class="descripcion">Desarrolladores_Anonimos</p>
+        </div>
+        <div class="item1">
+            <a href=""><img class="image" src="../static/image/Instagram.svg" alt=""></a>
+            <p class="descripcion">@Desarrolladores_Anonimos</p>
+        </div>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="co1">
+        <div class="item2">
+            <a href=""><img class="image" src="../static/image/WhatsApp.svg" alt=""></a>
+            <p class="descripcion">+51-927-626-436</p>
+        </div>
+        <div class="item2">
+            <a href=""><img class="image" src="../static/image/Correo Electrónico.svg" alt=""></a>
+            <p class="descripcion">desarrolladoresanonimos@gmail.com</p>
+        </div>
+        </div>
+    </div>
+        <!-- Logo en una columna separada -->
+    <div class="column">
+        <div class="logo-principal">
+                <img src="../static/image/Icono-principal.svg" alt="Logo">
+        </div>
+    </div>
+</div>
+
+{% endblock %}

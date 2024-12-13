@@ -1,0 +1,27 @@
+/*fuentes*/
+@font-face {
+    font-family: 'inter-bold';
+    src: url(../fonts/Inter_24pt-SemiBold.ttf);
+}
+@font-face {
+    font-family: 'inter';
+    src: url(../fonts/Inter_24pt-Regular.ttf);
+}
+
+/*Variables*/
+:root{
+    --colo-primario :#000D54;
+    --blanco:#ffff;
+    --fuente-btn: 20px;
+    --fondo: #A3ADE2;
+    --modal: #C8CEEE;
+}
+a{
+    text-decoration: none;
+}
+a:visited {
+    color: inherit; /* No cambia el color después de haber visitado el enlace */
+}
+body{
+    background-color: var(--fondo);
+}

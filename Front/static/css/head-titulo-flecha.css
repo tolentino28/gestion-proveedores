@@ -1,0 +1,35 @@
+
+
+.container-titulo {
+    display: flex; /* Asegura que los elementos estén en la misma línea */
+    align-items: center; /* Centra los elementos verticalmente */
+    justify-content: flex-start; /* Coloca la flecha a la izquierda */
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    padding: 0 20px; /* Espaciado lateral */
+    box-sizing: border-box;
+    height: 50px; /* Ajusta la altura del contenedor */
+    font-family: 'inter-bold';
+
+}   
+
+.arrow {
+    display: flex;
+    align-items: center; /* Centra verticalmente la flecha */
+    margin: 10px;
+}
+.arrow img{
+margin-left: 40px;
+}
+.text {
+    flex: 1; /* Ocupa el espacio restante después de la flecha */
+    text-align: center; /* Centra el texto horizontalmente */
+    font-size: 18px; /* Tamaño del texto */
+    color: #00134d; /* Color del texto */
+}
+
+@media (max-width: 440px)  {
+    /*-------------------------------------head-titulo-flecha.html---------------------------*/
+    .arrow img{
+        margin-left: 0px;   
+    }
+}

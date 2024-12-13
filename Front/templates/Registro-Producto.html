@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Producto</title>
+    <link rel="stylesheet" href="{% static 'css/Registro-Producto.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Formularios.css' %}">
+    <style>
+        @media (max-width: 440px) {
+            .form-container h2{
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Encabezado -->
+        <div class="header">
+            {% include 'head-titulo-flecha.html' %}
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="content">
+            <!-- Formulario -->
+            <div class="form-container">
+                <form method="POST" enctype="multipart/form-data" id="product-form">
+                    {% csrf_token %}
+                    <div class="input-container">
+                        <!-- Si existe producto, precargamos el valor -->
+                        <input type="text" id="producto" name="producto" placeholder=" " 
+                               value="{{ producto.nombre|default:'' }}">
+                        <label for="producto">Producto</label>
+                    </div>
+                
+                    <div class="input-container">
+                        <select id="unidad" name="unidad">
+                            <option value=""></option>
+                            <option value="litros" {% if producto and producto.unidad_de_medida == 'litros' %}selected{% endif %}>L</option>
+                            <option value="kilogramos" {% if producto and producto.unidad_de_medida == 'kilogramos' %}selected{% endif %}>Kg</option>
+                            <option value="unidades" {% if producto and producto.unidad_de_medida == 'unidades' %}selected{% endif %}>U</option>
+                        </select>
+                        <label for="unidad">Unidad de Medida</label>
+                    </div>
+                
+                    <div class="input-container">
+                        <input type="text" id="descripcion" name="descripcion" placeholder=" "
+                               value="{{ producto.descripcion|default:'' }}">
+                        <label for="descripcion">Descripción</label>
+                    </div>
+                
+                    <div class="input-container">
+                        <input type="file" id="imagen" name="imagen" accept="image/*">
+                        <label for="imagen">Cargar Imagen</label>
+                    </div>
+
+                    <!-- Cambiamos el texto del botón según si hay producto o no -->
+                    {% if producto %}
+                        <button  class="btn-save" type="submit">Actualizar Producto</button>
+                    {% else %}
+                        <button  class="btn-save" type="submit">Registrar Producto</button>
+                    {% endif %}
+                </form>
+            </div>
+
+            <!-- Imagen y botón -->
+            <div class="image-container">
+                <!-- Si existe producto, mostramos su imagen, sino la imagen por defecto -->
+                {% if producto and producto.imagen %}
+                    <img id="preview" src="{{ producto.imagen.url }}" alt="Vista previa del producto">
+                {% else %}
+                    <img id="preview" src="https://via.placeholder.com/250" alt="Vista previa del producto">
+                {% endif %}
+                
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Script para previsualizar la imagen cargada
+        const inputImagen = document.getElementById('imagen');
+        const preview = document.getElementById('preview');
+
+        inputImagen.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>

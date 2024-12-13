@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block mi-contenido %}
+  <div class="container-titulo">
+      <div class="arrow">
+          <a href="{% url 'CerrarSesion' %}">
+              <img  src="../static/image/Flecha.svg" alt="">
+          </a>
+          
+      </div>
+      <div class="text">{{tituloHead}}</div>
+
+  </div>
+    <style>
+      .container-titulo{
+        padding: 0;
+      }
+      .boton1{
+        display: flex;
+        align-items: center;  
+        justify-content: center;
+        grid-column: 2/4;
+      }
+      .icono-principal{
+        color: var(--blanco);
+        font-family: 'inter';
+        text-align: center;
+      }
+      p{
+        font-size: 1.5rem;
+      }
+      .textos{
+        grid-column: 2/4;
+        grid-row: 2/3;
+      }
+      .textos img{
+        width: 80%;
+      }
+      .text{
+        display: none;
+      }
+      @media (max-width: 440px) {
+        .text{
+          display:inline;
+        }
+        body{
+          background-image: none;
+        }
+        .textos{
+          display:contents;
+          display: flex;
+          justify-content: center; /* Centra horizontalmente */
+          align-items: center;    
+          margin: 65px 0 0 0;
+        }
+        .icono-principal{
+          color: var(--colo-primario);
+          margin: 35% 0;
+        }
+      }
+    </style>
+    <div class="textos">
+      <img src="../static/image/objeto-producto.svg" alt="GP">
+    </div>
+    <div class="icono-principal">
+      <h1>¡BIENVENIDO {{user.username}}!</h1>
+      <p>Acelera tus procesos y 
+        mejora tus resultados.</p> 
+    </div>
+    <button class="btn boton1"> <a href="{% url 'RegistroProducto' %}"> REGISTRAR PRODUCTO</a></button>      
+{% endblock %}

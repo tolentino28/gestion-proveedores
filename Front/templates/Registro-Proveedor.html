@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar Proveedor</title>
+  <link rel="stylesheet" href="{% static 'css/Agregar-proveedor.css' %}">
+</head>
+<body>
+  <div class="container">
+    {% include 'head-titulo-flecha.html' %}
+    <main class="main-content">
+      <!-- Contenedor de imagen y botón -->
+      <div class="left-container">
+        <div class="image-container">
+          <img src="{% static 'image/icono-perfil.svg' %}" alt="Icono Proveedor">
+        </div>
+      </div>
+      <!-- Contenedor del formulario -->
+      <div class="form-container">
+        <form class="form" method="POST">
+          {% csrf_token %}
+          <div class="form-inputs">
+              <div class="input-container">
+                  <input type="text" id="dni" name="dni_pasaporte" placeholder=" " 
+                         {% if proveedor %} value="{{ proveedor.dni_pasaporte }}" {% else %} value="" {% endif %} required>
+                  <label for="dni">DNI/Pasaporte</label>
+              </div>
+              <div class="input-container">
+                  <input type="text" id="name" name="nombre" placeholder=" " 
+                         {% if proveedor %} value="{{ proveedor.nombre }}" {% else %} value="" {% endif %} required>
+                  <label for="name">Nombre</label>
+              </div>
+              <div class="input-container">
+                  <input type="text" id="surname" name="apellidos" placeholder=" " 
+                         {% if proveedor %} value="{{ proveedor.apellidos }}" {% else %} value="" {% endif %}>
+                  <label for="surname">Apellido</label>
+              </div>
+              <div class="input-container">
+                  <input type="text" id="phone" name="telefono" placeholder=" " 
+                         {% if proveedor %} value="{{ proveedor.telefono }}" {% else %} value="" {% endif %}>
+                  <label for="phone">Teléfono</label>
+              </div>
+              <div class="input-container">
+                  <input type="text" id="address" name="ubicacion" placeholder=" " 
+                         {% if proveedor %} value="{{ proveedor.ubicacion }}" {% else %} value="" {% endif %}>
+                  <label for="address">Ubicación</label>
+              </div>
+              <div class="input-container">
+                  <input type="email" id="email" name="correo_electronico" placeholder=" " 
+                         {% if proveedor %} value="{{ proveedor.correo_electronico }}" {% else %} value="" {% endif %} required>
+                  <label for="email">Correo Electrónico</label>
+              </div>
+          </div>
+      
+          <!-- Botón con texto condicional -->
+          <button class="submit-button" type="submit" >
+              {% if proveedor %} Actualizar Proveedor {% else %} Registrar Proveedor {% endif %}
+          </button>
+      </form>              
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,675 @@
+:root {
+    --primary-color: #000D54;
+    --secondary-color: #A3ADE2;
+    --button-color: #455191;
+    --white: #FFFFFF;
+    --background-color: #A3ADE2;
+    --text-color: #000D54;
+    --shadow: 0 4px 6px rgba(0, 13, 84, 0.1);
+
+    /* Variables para móvil */
+    --mobile-form-width: 90%;
+    --mobile-voucher-width: 90%;
+    --mobile-padding: 1rem;
+    --mobile-gap: 10px;
+}
+/*fuentes*/
+@font-face {
+    font-family: 'inter-bold';
+    src: url(../fonts/Inter_24pt-SemiBold.ttf);
+}
+@font-face {
+    font-family: 'inter';
+    src: url(../fonts/Inter_24pt-Regular.ttf);
+}
+body {
+    background-color: var(--background-color);
+    margin: 0;
+    height: 100vh;
+    font-family: 'inter';
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+a{
+    text-decoration: none;
+}
+a:visited {
+    color: inherit; /* No cambia el color después de haber visitado el enlace */
+}
+
+
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+}
+
+.form-container {
+    background-color: #C8CEEE;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px #000D54;
+    width: 1000px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-grid {
+    display: flex;
+    flex-direction: row; /* Reverses order to put voucher on right */
+    justify-content: flex-start;
+    gap: 15px;
+    position: relative;
+}
+
+.purchase-form {
+    flex: 2;
+    display:grid;
+    margin-right: 50px;
+    height: fit-content;
+}
+
+.right-section {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px; /* Espacio entre voucher y formulario */
+    margin-left: 0px; /* Espacio desde el borde izquierdo */
+    order: 1; /* Asegura que va primero */
+}
+
+.form-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.input-container label {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #C8CEEE;
+    padding: 0 5px;
+    font-size: 14px;
+    color: #666;
+    transition: all 0.2s ease-in-out;
+    pointer-events: none;
+}
+
+/* Floating label animation */
+.input-container input:focus ~ label,
+.input-container input:not(:placeholder-shown) ~ label,
+.input-container select:focus ~ label,
+.input-container select:not([value=""]):valid ~ label,
+.input-container textarea:focus ~ label,
+.input-container textarea:not(:placeholder-shown) ~ label {
+    top: 0;
+    transform: translateY(-50%) scale(0.9);
+    font-size: 17px;
+    color: #000080;
+}
+
+.input-container input:focus,
+.input-container select:focus,
+.input-container textarea:focus {
+    outline: none;
+    border-color: #000D54;
+    box-shadow: 0 0 0 2px rgba(0, 13, 84, 0.2);
+}
+
+.input-container input,
+.input-container select,
+.input-container textarea {
+    width: 100%;
+    padding: 10px;  /* Reduced from 15px */
+    border: 2px solid #b8b8ff;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #C8CEEE;
+    appearance: none;
+    height: 45px;  /* Fixed height for all inputs */
+    box-sizing: border-box;
+}
+
+/* Textarea specific styles */
+.input-container textarea {
+    height: 120px;
+    resize: vertical;
+}
+
+.input-container textarea ~ label {
+    top: 25px;
+}
+
+.input-container textarea:focus ~ label,
+.input-container textarea:not(:placeholder-shown) ~ label {
+    top: 0;
+}
+
+/* Select arrow styling */
+.input-container select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23666' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+
+.right-section {
+    width: 300px;
+    height: fit-content;
+}
+
+.button-group {    
+    width: 300px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.voucher {
+    background-color: transparent;
+    padding: 20px;
+    border: 2px solid var(--button-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #000080;
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    position: static;
+}
+
+.voucher h3 {
+    margin-bottom: 15px;
+    font-size: 16px;
+    text-align: center;
+    color: #000D54;
+}
+
+.voucher-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+.voucher-total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    font-weight: bold;
+    border-top: 2px dashed var(--button-color);
+    padding-top: 10px;
+}
+
+
+.btn-save {
+    padding: 12px 18px;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-save {
+    background-color: #000D54;
+    color: white;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 13, 84, 0.2);
+}
+
+.btn-save:hover {
+    background-color: #001875;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 13, 84, 0.3);
+}
+/* ventana flotante cuotas */
+.installment{
+    background-color: transparent;
+    padding: 20px;
+    border: 2px solid var(--button-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #000080;
+    overflow-y: auto;
+    position: static;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.modal-payment {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: #C8CEEE;
+    padding: 1rem 2rem 2rem; /* Reduced top padding */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px #000D54;
+    width: 90%;
+    max-width: 400px;
+}
+
+.modal-payment h4 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    margin: 0 0 1.5rem 0; /* Removed top margin */
+    padding: 5px; /* Reduced padding */
+}
+
+.modal-payment input { 
+    font-size: 14px;
+    background-color: transparent;
+    appearance: none;
+    box-sizing: border-box;
+}
+
+.modal-payment .installment-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    color: #000080;
+}
+.installment-item-total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+.modal-payment hr {
+    border: none;
+    border-top: 2px dashed var(--button-color);
+    margin: 15px 0;
+}
+
+.modal-payment .installment-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 50px;
+}
+
+.modal-payment .btn-save {
+    background-color: #000D54;
+    color: white;
+    width: 50%;
+}
+
+.modal-payment .btn-cancel {
+    background-color: transparent;
+    border: #000D54 2px solid;
+    color: #000D54;
+    font-size: 15px;
+    width: 50%;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.modal-payment .btn-save:hover,
+.modal-payment .btn-cancel:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 13, 84, 0.3);
+}
+
+.form-floating {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.form-floating input {
+    width: 100%;
+    height: 3rem;
+    padding: 1rem;
+    border: 1px solid #b8b8ff;
+    border-radius: 4px;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.form-floating label {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color:#C8CEEE;
+    padding: 0 0.25rem;
+    color: #455191;
+    transition: all 0.2s ease-in-out;
+    pointer-events: none;
+}
+
+.form-floating input:focus,
+.form-floating input:not(:placeholder-shown) {
+    border-color: #001875;
+    border-width: 2px;
+}
+
+.form-floating input:focus ~ label,
+.form-floating input:not(:placeholder-shown) ~ label {
+    top: 0;
+    font-size: 0.875rem;
+    color: #001875;
+}
+
+/* ventana flotante CONTADO */
+/* Overlay */
+.modal-overlay-contado {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 999;
+}
+
+/* Modal Contado */
+.modal-payment-contado {
+    background-color: #E0E7FF;
+    border-radius: 8px;
+    padding: 20px;
+    width: 400px;
+    margin: 0 auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 1000;
+}
+
+.modal-payment-contado h4 {
+    font-size: 24px;
+    color: #455191;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-contado {
+    margin-bottom: 20px;
+}
+
+.form-contado label {
+    display: block;
+    font-size: 14px;
+    color: #000D54;
+    background-color:transparent;
+    margin-bottom: 5px;
+}
+
+.form-contado input,
+.form-contado select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #455191;
+    background-color: transparent;
+    color: #455191;
+}
+
+.detalle-contado {
+    margin: 20px 0;
+    background-color: transparent;
+    padding: 20px;
+    border: 2px solid var(--button-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #000080;
+    overflow-y: auto;
+    position: static;
+}
+
+.detalle-item,
+.detalle-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+.detalle-total {
+    font-weight: bold;
+}
+
+hr {
+    border: 1px solid #BDC3C7;
+    margin: 10px 0;
+}
+
+@media (max-width: 440px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .main-content {
+        padding-bottom: 70px;
+    }
+
+    body {
+        overflow-y: auto;
+        height: 100%;
+        -webkit-overflow-scrolling: touch;
+    }
+    .sidebar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        padding: 0;
+        z-index: 1000;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .menu-icon {
+        width: 100px; /* Tamaño uniforme para todos los íconos */
+        height: 200px;
+        
+    }
+
+    .logo {
+        display: none;
+    }
+
+    /* Ajustes del menú */
+    .menu {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        height: 100%;
+        gap: 0;
+        background-color: #000D54;
+        padding: 12px 0;
+    }
+
+    .menu-icon {
+        width: 80px;
+        height: 80px;
+    }
+
+    .menu-item {
+        width: auto;
+        height: 100%;
+        padding: 0.8rem;
+        margin: 0;
+        margin-bottom: 6px;
+        background-color: transparent;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .menu-item i {
+        font-size: 1.5rem;
+    }
+
+    .menu-icon.menu-icon-desktop {
+        display: none;
+    }
+
+    .menu-icon.menu-icon-mobile {
+        display: block;
+    }
+
+    .main-content {
+        margin-left: 0;
+        margin-bottom: 120px;
+        padding: 1rem;
+        width: 100%;
+    }
+
+    .form-container {
+        width: var(--mobile-form-width);
+        margin: 0 auto;
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+    .form-grid {
+        gap: var(--mobile-gap);
+        flex-direction: column;
+    }
+
+    .purchase-form {
+        width: var(--mobile-form-width);
+        order: 1;
+    }
+
+    .right-section {
+        width: var(--mobile-voucher-width);
+        order: 2;
+    }
+
+    .button-group {
+        width: 100%;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .voucher {
+        width: var(--mobile-voucher-width);
+        margin-top: 20px;
+        height: auto;
+        overflow: visible;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        width: calc(100% - 20px); /* Account for padding */
+        margin: 1rem auto;
+        padding: 0 10px;
+        word-wrap: break-word;
+        box-sizing: border-box;
+    }
+
+    .input-container input,
+    .input-container select,
+    .input-container textarea {
+        font-size: 16px;
+        background-color: transparent;
+        border: 2px solid #b8b8ff;
+    }
+
+    .input-container label {
+    background-color: transparent;
+    padding: 0 5px;
+    color: var(--primary-color);
+    }
+
+    .input-container input:focus ~ label,
+    .input-container input:not(:placeholder-shown) ~ label,
+    .input-container select:focus ~ label,
+    .input-container select:not([value=""]):valid ~ label,
+    .input-container textarea:focus ~ label,
+    .input-container textarea:not(:placeholder-shown) ~ label {
+        background-color: #A3ADE2;
+        color: #000080;
+        padding: 0 5px;
+        transform: translateY(-50%) scale(0.9);
+    }
+
+    .btn-save {
+        width: 103%;
+        margin-bottom: 10px;
+    }
+    .input-container select {
+        width: 100%;
+        height: 45px;
+        padding: 0 10px;
+        font-size: 14px;
+        line-height: normal;
+        box-sizing: border-box;
+        background-color: transparent;
+        border: 2px solid #b8b8ff;
+        appearance: none; /* Eliminar estilos predeterminados */
+    -webkit-appearance: none; /* Para navegadores basados en WebKit */
+    -moz-appearance: none; /* Para navegadores basados en Gecko */
+    }
+    
+    .input-container select option {
+        font-size: 14px;
+        padding: 5px;
+       
+        white-space: nowrap; /* Evitar saltos de línea */
+        overflow: hidden; /* Ocultar texto excedente */
+        text-overflow: ellipsis; /* Mostrar "..." si el texto es muy largo */
+        background-color: transparent;
+    }
+    .input-container select:focus {
+        outline: none; /* Eliminar contorno predeterminado al enfocar */
+        border-color: #000080; /* Cambiar color del borde al enfocar */
+    }
+    .input-container select option {
+        font-size: 12px; /* Tamaño más pequeño para las opciones */
+        padding: 4px; /* Ajustar el espacio interno */
+        white-space: nowrap; /* Evitar que el texto haga saltos de línea */
+        overflow: hidden; /* Ocultar texto excedente */
+        text-overflow: ellipsis; /* Agregar "..." para texto largo */
+        background-color: transparent;
+    }
+    
+    .input-container select option {
+        font-size: 12px; /* Tamaño más pequeño para las opciones */
+        padding: 4px; /* Ajustar el espacio interno */
+        white-space: nowrap; /* Evitar que el texto haga saltos de línea */
+        overflow: hidden; /* Ocultar texto excedente */
+        text-overflow: ellipsis; /* Agregar "..." para texto largo */
+        background-color: transparent;
+    }
+      
+}
+
+

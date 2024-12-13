@@ -1,0 +1,201 @@
+/* General reset */
+body, h2, form, label, input, button, select, option {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Asegura que el padding y margen no afecten el tamaño de los elementos */
+
+}
+
+body, html {
+    width: 100%;
+}
+
+body {
+    font-family: 'inter'; /* Establece la fuente principal */
+    background: #A3ADE2; /* Fondo azul claro */
+    color: #000D54; /* Color del texto */
+    text-align: center; /* Centra el texto */
+
+}
+
+/* Contenedor general */
+.container {
+    max-width: 100%; /* El contenedor puede ocupar todo el ancho disponible */
+    margin: 0 auto; /* Centra el contenedor en la página */
+}
+
+/* Estilo del encabezado */
+
+
+.menu-button {
+    background-color: transparent; /* El botón del menú no tiene fondo */
+    border: none; /* Sin borde */
+    margin-left: 0; /* Elimina el margen izquierdo */
+    position: absolute; /* Posiciona el botón de forma absoluta */
+    left: 30px; /* Lo coloca 10px desde el borde izquierdo */
+    top: 30px; /* Ajusta la posición vertical si es necesario */
+}
+
+
+.menu-button img {
+    width: 25px; /* Ajusta el tamaño de la imagen dentro del botón */
+}
+
+/* Contenido principal */
+.content {
+    display: flex; /* Usa Flexbox para organizar los elementos */
+    flex-wrap: wrap; /* Permite que los elementos se ajusten a la línea siguiente si es necesario */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: flex-start; /* Alinea los elementos al principio del contenedor */
+    padding: 10px;
+    margin-top: 10px;
+}
+
+/* Formulario */
+.form-container {
+    margin-top: 60px;
+    width: 100%; /* El formulario ocupa todo el ancho disponible */
+    height: 400px; /* Altura fija */
+    max-width: 700px; /* Ancho máximo */
+    background: #C8CEEE;  
+    padding: 20px; /* Espaciado interno */
+    border-radius: 20px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+form {
+    display: flex; /* Usa Flexbox para el formulario */
+    flex-direction: column; /* Organiza los elementos en una columna */
+    align-items: stretch; /* Asegura que los elementos ocupen todo el ancho */
+    gap: 10px; /* Espacio uniforme entre los elementos */
+}
+
+form h2 {
+    font-size: 30px; /* Tamaño grande del título */
+    margin-bottom: 20px; /* Espacio debajo del título */
+    color: #242650; /* Color oscuro para el título */
+    text-align: center; /* Centra el título */
+    margin-top: 30px; /* Espacio superior */
+}
+
+.input-container {
+    position: relative; /* Posicionamiento relativo para que los labels se ubiquen sobre los inputs */
+    margin-bottom: 1.5rem;
+}
+
+.input-container input,
+.input-container select {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    padding: 10px; /* Espaciado interno */
+    border: 2px solid #000D54;
+    background-color: #C8CEEE; 
+    border-radius: 6px; /* Bordes redondeados */
+    font-size: 14px; /* Tamaño de la fuente */
+    color: #000D54; /* Color del texto */
+}
+
+
+.input-container label {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #C8CEEE;
+    padding: 0 5px;
+    font-size: 14px;
+    color: #000D54;
+    transition: all 0.2s ease-in-out; /* Smooth animation */
+    pointer-events: none;
+}
+.input-container input:focus ~ label,
+.input-container input:not(:placeholder-shown) ~ label,
+.input-container select:focus ~ label,
+.input-container select:not([value=""]):valid ~ label,
+.input-container textarea:focus ~ label,
+.input-container textarea:not(:placeholder-shown) ~ label {
+    top: 0;
+    transform: translateY(-50%) scale(0.9); /* Shrinks the label */
+    font-size: 17px;
+    color: #000D54;
+}
+
+.input-container input:focus,
+.input-container select:focus {
+    border: 2px solid #1e2245; /* Borde oscuro al enfocar */
+    outline: none; /* Elimina el contorno por defecto */
+}
+
+/* Imagen y botón */
+.image-container {
+    text-align: center; /* Centra el contenido de la imagen */
+    margin-top: -12px; /* Espacio superior */
+    padding: 80px;
+}
+
+.image-container img {
+    width: 90%; /* Ajusta el tamaño de la imagen */
+    height: 380px; /* Altura fija */
+    max-width: 450px; /* Ancho máximo */
+    border-radius: 8px; /* Bordes redondeados para la imagen */
+    border: 4px solid #000D54;
+}
+
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 440px) {
+    .content {
+        flex-direction: column; /* Apila los elementos en una columna */
+        align-items: center; /* Centra los elementos */
+    }
+
+
+    .menu-button {
+        margin-left: 10px; /* Añade margen izquierdo */
+        order: -1; /* Cambia el orden para que aparezca antes */
+        margin-top: 20px; /* Añade margen superior */
+    }
+
+    form h2 {
+        font-size: 20px; /* Reduce el tamaño del título */
+        margin-top: -130px; /* Ajusta el margen superior */
+        text-align: center; /* Centra el título */
+    }
+
+    form input, form select {
+        padding: 20px; /* Aumenta el espaciado interno */
+        background-color: #A3ADE2; /* Fondo más claro */
+    }
+    .form-container {
+        margin-top: 110px;
+        width: 90%; /* Ajusta el ancho del formulario */
+        height: auto;
+        background-color: #A3ADE2; /* Fondo más claro */
+        box-shadow: none; /* Elimina la sombra */
+        border: none; /* Elimina el borde */
+    }
+    .menu-button {
+    
+        top: 5px; /* Ajusta la posición vertical si es necesario */
+    }
+    .image-container img {
+        width: 90%; /* Imagen ocupa el 90% del ancho del contenedor */
+        height: 400px; /* Altura fija de 350px */
+        margin-top: 20px; /* Ajuste opcional para separación superior */
+        border: 4px solid #000D54; /* Borde decorativo */
+        border-radius: 10px; /* Esquinas redondeadas */
+       
+    }
+    .image-container {
+        padding: 10px;
+    }
+    .input-container label {
+        background-color: #A3ADE2;
+    }
+    .input-container input {
+        background-color: #A3ADE2;
+    }  
+    #unidad {
+        background-color: #A3ADE2;
+    }
+    
+}

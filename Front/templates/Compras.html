@@ -1,0 +1,392 @@
+    {% extends 'barra-nav-lateral.html' %}
+    {% block tabla %}
+    <div class="table-container">
+        <style>
+            /* Modal Overlay */
+            .modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+                display: none; /* Escondido por defecto */
+            }
+
+            /* Modal Payment */
+            .modal-payment {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1000;
+                background-color: #C8CEEE;
+                padding: 1rem 2rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px #000D54;
+                width: 90%;
+                max-width: 400px;
+                display: none; /* Escondido por defecto */
+            }
+            @media (max-width: 440px) {
+                .modal-payment{
+                    width: 70vm;
+                    max-width: none; 
+                }
+            }
+            /* Modal Header */
+            .modal-payment h4 {
+                color: #001875;
+                font-size: 1.5rem;
+                font-weight: 600;
+                text-align: center;
+                margin-bottom: 1.5rem;
+            }
+
+            /* Installment Items */
+            .installment-item {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                padding: 10px 0;
+                color: #000080;
+            }
+
+            .installment-item-total {
+                font-weight: bold;
+                margin-top: 15px;
+                padding-top: 10px;
+            }
+
+            /* Dashed Line */
+            .modal-payment hr {
+                border: none;
+                border-top: 2px dashed #000D54;
+                margin: 15px 0;
+            }
+
+            /* Form Floating Styles */
+            .form-floating {
+                position: relative;
+                margin-bottom: 1rem;
+            }
+
+            .form-floating input {
+                width: 100%;
+                height: 3rem;
+                padding: 1rem;
+                border: 1px solid #b8b8ff;
+                border-radius: 4px;
+                outline: none;
+                transition: all 0.2s ease-in-out;
+            }
+
+            .form-floating label {
+                position: absolute;
+                left: 1rem;
+                top: 50%;
+                transform: translateY(-50%);
+                background-color: #C8CEEE;
+                padding: 0 0.25rem;
+                color: #455191;
+                transition: all 0.2s ease-in-out;
+                pointer-events: none;
+            }
+
+            .form-floating input:focus,
+            .form-floating input:not(:placeholder-shown) {
+                border-color: #001875;
+                border-width: 2px;
+            }
+
+            .form-floating input:focus ~ label,
+            .form-floating input:not(:placeholder-shown) ~ label {
+                top: 0;
+                font-size: 0.875rem;
+                color: #001875;
+            }
+
+            /* Installment Buttons */
+            .installment-buttons {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+
+            .btn-pay {
+                background-color: #000D54;
+                color: white;
+                width: 50%;
+                height: 40px;
+                border: none;
+                border-radius: 20px;
+                font-size: 15px;
+                transition: all 0.2s ease-in-out;
+            }
+
+            .btn-cancel {
+                background-color: transparent;
+                border: 2px solid #000D54;
+                color: #000D54;
+                width: 50%;
+                height: 40px;
+                border-radius: 20px;
+                font-size: 15px;
+                transition: all 0.2s ease-in-out;
+            }
+
+            .btn-pay:hover,
+            .btn-cancel:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 13, 84, 0.3);
+            }
+
+            .form-contado {
+                margin-bottom: 20px;
+            }
+            
+            .form-contado label {
+                display: block;
+                font-size: 14px;
+                color: #000D54;
+                background-color:transparent;
+                margin-bottom: 5px;
+            }
+            
+            .form-contado input,
+            .form-contado select {
+                width: 100%;
+                padding: 10px;
+                border-radius: 5px;
+                border: 1px solid #455191;
+                background-color: transparent;
+                color: #455191;
+            }
+
+        </style>
+<!-- Botones de acción principales -->
+<div class="action-buttons">
+    <a href="{% url 'FormularioCompra' %}"><button class="add-button"><i class="fas fa-plus"></i> AGREGAR</button></a>
+</div> 
+<!-- Contenedor de la tabla -->
+<div class="table-container">
+    <!-- Tabla de datos -->
+    <table role="grid">
+        <!-- Encabezados de la tabla -->
+        <thead>
+            <tr>
+                <th scope="col">PROVEEDOR</th>
+                <th scope="col">FECHA</th>
+                <th scope="col">N. Calidad</th>
+                <th scope="col">PPRECIO</th>
+                <th scope="col">CANTIDAD</th>
+                <th scope="col">TOTAL</th>
+                <th scope="col">TIPO DE PAGO</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <!-- Cuerpo de la tabla -->
+        <tbody>
+            {% for compra in compras %}
+            <tr>
+                <td>{{ compra.id_proveedor.nombre }}</td> 
+                <td>{{ compra.fecha_compra }}</td> 
+                <td>{{ compra.nivel_calidad }}</td> 
+                <td>{{ compra.precio }}</td> 
+                <td>{{ compra.cantidad }}</td> 
+                <td>S/. {{ compra.monto_total }}</td> 
+                <td>{{ compra.tipo_pago }}</td> 
+                <!-- Botones de acción por fila -->
+                <td class="action-buttons">
+                    {% if compra.tipo_pago == "cuotas" and compra.cuota and compra.cuota.cuotas_pagadas < compra.cuota.cantidad_cuotas %}
+                        <button 
+                            class="edit-button" 
+                            onclick="fetchCuotasData('{{ compra.id_compra }}')">
+                            <i class="fas fa-add"></i>
+                        </button>
+                    {% endif %}
+                    <a href="{% url 'eliminar_compra' compra.id_compra %}" class="delete-button" onclick="return confirm('¿Seguro que deseas eliminar esta compra?')"><i class="fas fa-trash"></i></a>
+                    <!--<a href="{% url 'obtener_cuotas' compra.id_compra %}" class="delete-button"><i class="fas fa-trash"></i></a>-->
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8">No hay compras disponibles.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>  
+</div>
+</div>
+
+<!-- Modal para Pago de Cuotas -->
+<div class="modal-overlay" id="modalOverlay" style="display: none;"></div>
+<div class="modal-payment" id="paymentModal" style="display: none;">
+<h4>Pago Cuotas</h4>
+<div class="installment-details">
+    <div class="installment-item">
+        <span>Estado:</span>
+        <span id="modal-estado">Pendiente</span> <!-- Aquí se mostrará el estado -->
+    </div>
+    <div class="installment-item">
+        <span>Cuotas:</span>
+        <span id="modal-total-cuotas">0</span> <!-- Total de cuotas -->
+    </div>
+    <div class="installment-item">
+        <span>Monto por cuota:</span>
+        <span id="modal-monto-por-cuota">S/ 0.00</span> <!-- Monto por cuota -->
+    </div>
+    <div class="installment-item">
+        <span>Cuotas pagadas:</span>
+        <span id="modal-cuotas-pagadas">0</span> <!-- Cuotas pagadas -->
+    </div>
+    <div class="installment-item">
+        <span>Vencimiento de Pago:</span>
+        <span id="modal-vencimiento-pago">N/A</span> <!-- Fecha de vencimiento -->
+    </div>                  
+    <hr>
+    <div class="installment-item installment-item-total">
+        <span>Total:</span>
+        <span id="modal-total">S/ 0.00</span>
+    </div>
+</div>
+<div class="installment-buttons">
+    <button type="button" class="btn-pay" onclick="openPayModal()">Pagar Cuota</button>
+    <button type="button" class="btn-cancel" onclick="closePaymentModal()">Cancelar</button>
+</div>
+</div>
+
+<!-- Modal Pago -->
+<div class="modal-overlay" id="modalContadoOverlay" style="display: none;"></div>
+<div class="modal-payment" id="modalContado" style="display: none;">
+<h4>PAGO</h4>
+<div class="installment-details">
+    <div class="form-contado">
+        <span>Método de Pago:</span>
+        <select id="metodo_pago">
+            <option value="efectivo">Efectivo</option>
+            <option value="transferencia">Transferencia</option>
+            <option value="tarjeta">Tarjeta</option>
+        </select>
+    </div>
+    <div class="form-contado">
+        <span>Evidencia de Pago:</span>
+        <input type="file" id="evidencia_pago" accept="image/*">
+    </div>
+</div>
+<div class="installment-buttons">
+    <button type="button" class="btn-pay" onclick="savePayment()">Guardar</button>
+    <button type="button" class="btn-cancel" onclick="closePayModal()">Cancelar</button>
+</div>
+</div>
+
+<script>
+let currentCuotaId = null;  // Variable global para almacenar el ID de la cuota actual
+
+function fetchCuotasData(compraId) {
+    fetch(`/api/cuotas/${compraId}/`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al obtener los datos del servidor');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+                return;
+            }
+
+            // Llamamos a openPaymentModal con los datos de la cuota
+            openPaymentModal({
+                id_cuota: data.id_cuota,
+                estado: data.estado || 'Pendiente',
+                total_cuotas: data.total_cuotas || '0',
+                monto_por_cuota: data.monto_por_cuota || '0.00',
+                cuotas_pagadas: data.cuotas_pagadas || '0',
+                vencimiento: data.vencimiento || 'N/A',
+                total: data.total || '0.00',
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Hubo un error al obtener los datos de la compra.');
+        });
+}
+
+function openPaymentModal(data) {
+    document.getElementById('modal-estado').innerText = data.estado || 'Pendiente';
+    document.getElementById('modal-total-cuotas').innerText = data.total_cuotas || '0';
+    document.getElementById('modal-monto-por-cuota').innerText = `S/ ${data.monto_por_cuota || '0.00'}`;
+    document.getElementById('modal-cuotas-pagadas').innerText = data.cuotas_pagadas || '0';
+    document.getElementById('modal-vencimiento-pago').innerText = data.vencimiento || 'N/A';
+    document.getElementById('modal-total').innerText = `S/ ${data.total || '0.00'}`;
+
+    // Almacenar el ID de la cuota actual
+    currentCuotaId = data.id_cuota;
+
+    // Mostrar el modal
+    document.getElementById('modalOverlay').style.display = 'block';
+    document.getElementById('paymentModal').style.display = 'block';
+}
+
+function closePaymentModal() {
+    document.getElementById('modalOverlay').style.display = 'none';
+    document.getElementById('paymentModal').style.display = 'none';
+}
+
+function openPayModal() {
+    // Cerrar el modal de cuotas
+    closePaymentModal();
+
+    // Mostrar el modal de pago
+    document.getElementById('modalContadoOverlay').style.display = 'block';
+    document.getElementById('modalContado').style.display = 'block';
+}
+
+function closePayModal() {
+    document.getElementById('modalContadoOverlay').style.display = 'none';
+    document.getElementById('modalContado').style.display = 'none';
+}
+
+function savePayment() {
+    const metodoPago = document.getElementById('metodo_pago').value;
+    const evidenciaPago = document.getElementById('evidencia_pago').files[0];
+    const fechaPago = new Date().toISOString().split('T')[0];  // Fecha actual en formato YYYY-MM-DD
+
+    if (!currentCuotaId) {
+        alert('No se ha identificado la cuota para realizar el pago.');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('metodo_pago', metodoPago);
+    if (evidenciaPago) {
+        formData.append('evidencia_pago', evidenciaPago);
+    }
+    formData.append('fecha_pago', fechaPago);
+
+    fetch(`/api/pagos/${currentCuotaId}/`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Pago registrado exitosamente');
+            // Opcional: Actualizar el modal con los nuevos datos
+            // Podrías refrescar los datos de las cuotas o cerrar y reabrir el modal
+            window.location.reload();  // Recargar la página para reflejar los cambios
+        } else {
+            alert('Error al registrar el pago: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Hubo un error al registrar el pago.');
+    });
+}
+</script>  
+{% endblock %}

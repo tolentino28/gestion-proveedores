@@ -1,0 +1,240 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Gestión</title>
+    <link rel="stylesheet" href="{% static 'css/Formularios.css' %}">
+</head>
+<body>
+    {% include 'head-titulo-flecha.html' %}
+    <div class="main-content">
+        <div class="form-container">
+            <div class="form-grid">
+                <!-- Formulario Principal -->
+                <form class="purchase-form" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="input-container">
+                        <select id="proveedor" name="proveedor">
+                            <option value="" disabled selected>Selecciona un proveedor</option>
+                            {% for proveedor in proveedores %}
+                                <option value="{{ proveedor.id_proveedor }}">{{ proveedor.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="proveedor">Proveedor</label>
+                    </div>
+                    <div class="input-container">
+                        <input type="number" id="cantidad" name="cantidad" placeholder=" " oninput="updateVoucherAndModals()">
+                        <label for="cantidad">Cantidad</label>
+                    </div>
+                    <div class="input-container">
+                        <select id="calidad" name="calidad" required>
+                            <option value="" selected disabled></option>
+                            <option value="excelente">Excelente</option>
+                            <option value="bueno">Bueno</option>
+                            <option value="medio">Medio</option>
+                            <option value="malo">Malo</option>
+                        </select>
+                        <label for="calidad">Nivel de calidad</label>
+                    </div>
+                    <div class="input-container">
+                        <input type="number" id="precio" name="precio" placeholder=" " oninput="updateVoucherAndModals()">
+                        <label for="precio">Precio</label>
+                    </div>
+                    <div class="input-container">
+                        <select id="tipo_pago" name="tipo_pago" required onchange="handlePaymentTypeChange()">
+                            <option value="" selected disabled></option>
+                            <option value="contado">Contado</option>
+                            <option value="cuotas">Cuotas</option>
+                        </select>
+                        <label for="tipo_pago">Tipo de Pago</label>
+                    </div>
+                    <div class="input-container">
+                        <textarea id="observaciones" name="observaciones" placeholder=" "></textarea>
+                        <label for="observaciones">Observaciones</label>
+                    </div>
+                    <!-- Campos ocultos para los datos de los modales -->
+                    <input type="hidden" id="num_cuotas_hidden" name="num_cuotas">
+                    <input type="hidden" id="fecha_pago_hidden" name="fecha_pago">
+                    <input type="hidden" id="metodo_pago_hidden" name="metodo_pago_contado">
+
+                    <button type="submit" class="btn-save" >Registrar Compra</button>
+                </form>
+
+                <!-- Voucher -->
+                <div class="right-section">
+                    <div class="voucher">
+                        <h3>Detalle de Compra</h3>
+                        <div class="voucher-item">
+                            <span>Fecha</span>
+                            <span id="voucher-fecha">---</span>
+                        </div>
+                        <div class="voucher-item">
+                            <span>Cantidad</span>
+                            <span id="voucher-cantidad">0</span>
+                        </div>
+                        <div class="voucher-item">
+                            <span>Precio</span>
+                            <span id="voucher-precio">0.00</span>
+                        </div>
+                        <div class="voucher-total">
+                            <span>Total</span>
+                            <span id="voucher-total">0.00</span>
+                        </div>
+                    </div>
+                    <!--<div class="button-group">
+                        <button type="submit" class="btn-save">REGISTRAR</button>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Pago en Cuotas -->
+    <div class="modal-overlay" id="modalOverlay" style="display: none;"></div>
+    <div class="modal-payment" id="paymentModal" style="display: none;">
+        <h4>PAGO EN CUOTAS</h4>
+        <div class="form-floating">
+            <input type="number" id="num_cuotas" min="1" placeholder=" " oninput="calculateInstallments()">
+            <label for="num_cuotas">Cantidad de Cuotas</label>
+        </div>
+        <div class="form-floating">
+            <input type="date" id="fecha_pago" placeholder=" ">
+            <label for="fecha_pago">Vencimiento de Pago</label>
+        </div>
+        <div class="installment">
+            <div class="installment-item">
+                <span>Cantidad:</span>
+                <span id="modal-cantidad-cuotas">0</span>
+            </div>
+            <div class="installment-item">
+                <span>Precio:</span>
+                <span id="modal-precio-cuotas">0.00</span>
+            </div>
+            <div class="installment-item">
+                <span>Total:</span>
+                <span id="modal-total-cuotas">0.00</span>
+            </div>
+            <div class="installment-item">
+                <span>Monto por Cuota:</span>
+                <span id="monto_por_cuota">S/ 0.00</span>
+            </div>
+        </div>
+        <div class="installment-buttons">
+            <button type="button" class="btn-save" onclick="saveInstallments()">Guardar</button>
+            <button type="button" class="btn-cancel" onclick="closePaymentModal()">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- Modal para Pago Contado -->
+    <div class="modal-overlay" id="modalContadoOverlay" style="display: none;"></div>
+    <div class="modal-payment" id="modalContado" style="display: none;">
+        <h4>PAGO CONTADO</h4>
+        <div class="form-contado">
+            <label for="metodo_pago_contado">Método de Pago</label>
+            <select id="metodo_pago_contado">
+                <option value="efectivo">Efectivo</option>
+                <option value="transferencia">Transferencia</option>
+                <option value="tarjeta">Tarjeta</option>
+            </select>
+            <div class="form-contado">
+                <label for="evidencia_pago_contado">Evidencia de Pago</label>
+                <input type="file" id="evidencia_pago_contado" accept="image/*">
+            </div>
+            <div class="detalle-contado">
+                <div class="detalle-item">
+                    <span>Cantidad:</span>
+                    <span id="modal-cantidad-contado">0</span>
+                </div>
+                <div class="detalle-item">
+                    <span>Precio:</span>
+                    <span id="modal-precio-contado">0.00</span>
+                </div>
+                <div class="detalle-total">
+                    <span>Total:</span>
+                    <span id="modal-total-contado">0.00</span>
+                </div>
+            </div>
+        </div>
+        <div class="installment-buttons">
+        <button type="button" class="btn-save" onclick="saveContado()">Guardar</button>
+        <button type="button" class="btn-cancel" onclick="closeContadoModal()">Cancelar</button>
+        </div>
+    </div>
+
+    <script>
+        function updateVoucherAndModals() {
+            const cantidad = parseFloat(document.getElementById('cantidad').value) || 0;
+            const precio = parseFloat(document.getElementById('precio').value) || 0;
+            const montoTotal = cantidad * precio;
+
+            // Actualizar el voucher
+            document.getElementById('voucher-cantidad').textContent = cantidad;
+            document.getElementById('voucher-precio').textContent = `S/ ${precio.toFixed(2)}`;
+            document.getElementById('voucher-total').textContent = `S/ ${montoTotal.toFixed(2)}`;
+            document.getElementById('voucher-fecha').textContent = new Date().toISOString().split('T')[0];
+            
+            // Actualizar los modales
+            document.getElementById('modal-cantidad-cuotas').textContent = cantidad;
+            document.getElementById('modal-precio-cuotas').textContent = `S/ ${precio.toFixed(2)}`;
+            document.getElementById('modal-total-cuotas').textContent = `S/ ${montoTotal.toFixed(2)}`;
+            document.getElementById('modal-cantidad-contado').textContent = cantidad;
+            document.getElementById('modal-precio-contado').textContent = `S/ ${precio.toFixed(2)}`;
+            document.getElementById('modal-total-contado').textContent = `S/ ${montoTotal.toFixed(2)}`;
+        }
+
+        function calculateInstallments() {
+            const montoTotal = parseFloat(document.getElementById('voucher-total').textContent.replace('S/', '')) || 0;
+            const numCuotas = parseInt(document.getElementById('num_cuotas').value) || 1;
+
+            const montoPorCuota = montoTotal / numCuotas;
+            document.getElementById('monto_por_cuota').textContent = `S/ ${montoPorCuota.toFixed(2)}`;
+        }
+
+        function handlePaymentTypeChange() {
+            const tipoPago = document.getElementById('tipo_pago').value;
+            if (tipoPago === 'cuotas') {
+                openPaymentModal();
+            } else if (tipoPago === 'contado') {
+                openContadoModal();
+            }
+        }
+
+        function saveInstallments() {
+            const numCuotas = document.getElementById('num_cuotas').value;
+            const fechaPago = document.getElementById('fecha_pago').value;
+            document.getElementById('num_cuotas_hidden').value = numCuotas;
+            document.getElementById('fecha_pago_hidden').value = fechaPago;
+            closePaymentModal();
+        }
+
+        function saveContado() {
+            const metodoPago = document.getElementById('metodo_pago_contado').value;
+            document.getElementById('metodo_pago_hidden').value = metodoPago;
+            closeContadoModal();
+        }
+
+        function openPaymentModal() {
+            document.getElementById('modalOverlay').style.display = 'block';
+            document.getElementById('paymentModal').style.display = 'block';
+        }
+
+        function closePaymentModal() {
+            document.getElementById('modalOverlay').style.display = 'none';
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+
+        function openContadoModal() {
+            document.getElementById('modalContadoOverlay').style.display = 'block';
+            document.getElementById('modalContado').style.display = 'block';
+        }
+
+        function closeContadoModal() {
+            document.getElementById('modalContadoOverlay').style.display = 'none';
+            document.getElementById('modalContado').style.display = 'none';
+        }
+    </script>
+</body>
+</html> 
+

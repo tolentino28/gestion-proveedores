@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block mi-contenido %}
+    {% include 'barra-navegación.html' %}
+    <style>
+        body{
+            background-color: var(--white);
+        }
+    </style>
+    <div class="textos">
+        <h1>¡Bienvenido!</h1>
+        <p>Con nuestro sistema de gestión, podrás
+        visualizar y controlar todas tus relaciones con
+        proveedores de manera ágil y eficiente.
+        Monitorea cada proveedor, gestiona pendientes
+        y toma decisiones con información actualizada
+        en tiempo real.</p> 
+    </div>
+    <div class="icono-principal">
+        <img src="../static/image/Icono-principal.svg" alt="GP">
+    </div>
+    <button class="btn boton1"><a href="{% url 'Registro' %}">Registrarse</a> </button>
+    <button class="btn boton2"><a href="{% url 'IniciarSesión' %}">Iniciar Sesión</a></button>      
+{% endblock %}

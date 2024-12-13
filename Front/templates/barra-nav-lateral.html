@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de Gestión de Proveedores">
+    <title>Gestión de Proveedores</title>
+    
+    <link rel="stylesheet" href="{% static 'css/compras.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Barra lateral -->
+        <aside class="sidebar">
+            <!-- Logo de la aplicación -->
+            <div class="logo">
+                <img src="../static/image/LogoGP.png" alt="Logo Gestión de Proveedores" class="logo-img">
+            </div>          
+            
+            <!-- Menú de navegación principal -->
+            <nav class="menu">
+                <a href="#" title="Proveedores">
+                    <div class="menu-item">
+                        <a href="{% url 'Proveedores' %}">
+                        <img src="../static/image/provedores.svg" alt="Proveedores" class="menu-icon menu-icon-desktop">
+                        <img src="../static/image/Proveedores-movil.svg" alt="Proveedores" class="menu-icon menu-icon-mobile">
+                        </a>
+                    </div>
+                </a>
+                <a href="#" title="Compras">
+                    <div class="menu-item">
+                        <a href="{% url 'Compras' %}">
+                            <img src="../static/image/carrito-de-compras.svg" alt="Compras" class="menu-icon menu-icon-desktop">
+                            <img src="../static/image/Compras-movil.svg" alt="Compras" class="menu-icon menu-icon-mobile">
+                        </a>
+                    </div>
+                </a>
+                <a href="#" title="Mi Perfil">
+                    <div class="menu-item">
+                        <a href="{% url 'Perfil' %}">
+                            <img src="../static/image/usuario.svg" alt="Usuario" class="menu-icon menu-icon-desktop">
+                            <img src="../static/image/Mi-Perfil-movil.svg" alt="Usuario" class="menu-icon menu-icon-mobile">
+                        </a>
+                    </div>
+                </a>
+                <a href="#" title="Salir">
+                    <div class="menu-item">
+                        <a href="{% url 'CerrarSesion' %}" onclick="return confirm('¿Seguro que deseas Cerrar Sesión?')">
+                            <img src="../static/image/salir.svg" alt="Salir" class="menu-icon menu-icon-desktop">
+                            <img src="../static/image/Sali-movil.svg" alt="Salir" class="menu-icon menu-icon-mobile">
+                    </div>
+                </a>
+            </nav>                        
+        </aside>
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <!-- Barra superior -->
+            <header class="top-bar">
+                <!-- Botón para mostrar/ocultar menú -->
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <!-- Barra de búsqueda -->
+                <div class="search-bar">
+                    <!--<button aria-label="Search button"><i class="fas fa-search"></i></button>-->
+                    <input type="text" placeholder="Buscar..." aria-label="Search">
+                </div>
+                
+            </header>
+                       
+            {% block tabla %}
+
+            {% endblock %}
+            
+        </main>
+    </div>
+    <!-- Enlace al archivo JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('collapsed');
+            });
+    
+            const searchInput = document.querySelector('.search-bar input');
+            const tableRows = document.querySelectorAll('tbody tr');
+    
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                
+                tableRows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(searchTerm) ? '' : 'none';
+                });
+            });
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuLinks = document.querySelectorAll('.menu a');
+            
+            menuLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    menuLinks.forEach(l => l.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                });
+            });
+        });        
+        
+    </script>
+</body>
+</html>

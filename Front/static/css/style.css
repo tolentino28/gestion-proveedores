@@ -1,0 +1,567 @@
+/*-------------------------------Base.html-------------------------------*/
+.contenedor{
+    display: grid;
+    grid-template-columns: 40px 290px 290px 1fr 1fr 1fr ;
+    grid-template-rows: 14vh 65vh 7vh;
+    box-sizing: border-box; 
+    max-width: 100%;
+    max-height: 100%;
+}
+/* Fondo*/
+body {
+    background-image: url('../image/fondo-lineas.svg');
+    background-repeat: no-repeat;
+    background-size: 65% 135%; /* Ajusta el tamaño al 50% del ancho y 900% de la altura */
+    background-position: right top; /* Posiciona la imagen en la esquina superior derecha */
+    margin: 0px;
+    background-color: var(--fondo);
+}
+
+/*-------------------------------barra-navegación.html-------------------------------*/
+
+header {
+    text-align: center;
+    grid-column: 4/6;
+}
+nav ul {
+    list-style: none;
+    display: inline-flex;
+    justify-content: center;
+    padding: 0px;
+}
+
+nav li {
+    margin: 20px 20px 0 0;
+    color: var(--colo-primario);
+    font-family:'inter-bold';
+    text-decoration: none;
+}
+
+header a:hover {
+    text-decoration: underline;
+}
+
+/*Logo del encabezado*/
+.contenedor-logo {
+    grid-column: 1/3;
+    grid-row: 1/2;
+    background-color: var(--colo-primario);
+    border-radius: 0px 60px 60px 0px;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    width: 30%;
+}
+.logo{
+    width: 70%;
+}
+.btn{
+    border: 2px solid var(--colo-primario);
+    display: inline-block;
+    border-radius: 30px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: var(--fuente-btn);
+    justify-items: stretch;
+    margin-right: 20px;
+}
+.boton1 {
+    background-color: var(--colo-primario);
+    color: var(--blanco);
+    grid-column: 2/3;
+    grid-row: 3/4;
+}
+
+.boton2 {
+    background-color: var(--blanco);
+    color: var(--colo-primario);
+    grid-column: 3/4;
+    grid-row: 3/4;
+}
+/*-------------------------------Inicio.html-------------------------------*/
+.textos {
+    grid-column: 1/4;
+    text-align: left;
+    margin-left: 30px;
+    max-width: 600px;
+    color:var(--colo-primario); 
+    font-family: 'inter';
+}
+
+.textos h1{
+    font-size: 70px;
+}
+
+.textos p{
+    font-size: 26px;
+}
+
+.icono-principal {
+    grid-column: 5/6;
+    grid-row: 2/3;
+    align-self: center;
+}
+.icono-principal img{
+    width: 300px;
+    justify-content: right;
+}
+
+/*-------------------------------Información.html-------------------------------*/
+.content {
+    background: rgba(255, 255, 255, 0.7); /* Blanco con 50% de opacidad */
+    border-radius: 10px;
+    padding: 30px;
+    margin: 0 45px 40px 0;
+    text-align: center;
+    margin-top: 0; 
+    grid-column: 2/7;
+    grid-row: 2/5;
+}
+
+.sections-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px; 
+}
+
+.section-title {
+    font-size: 1.25rem;
+    color: var(--colo-primario);
+    margin: 15px 0;
+    font-family: 'inter-bold';
+}
+
+.description {
+    font-size: 0.9rem;
+    color: var(--colo-primario);
+    font-family: 'inter';
+}
+
+.section img {
+    max-width: 100%;
+    height: auto;
+    margin: 15px 0;
+}
+
+h2{
+    color: var(--colo-primario);
+    margin: 10px 0 ;
+    font-family: 'inter-bold';
+}
+/**----------------------------------Contacto.html---------------------------------**/
+.texto{
+    width: 75%; /* Hace que el contenedor ocupe el 50% de la página */
+    height: 35%;
+    position: absolute; /* Posiciona el contenido */
+    top: 25%; /* Centra verticalmente */
+    left: 30px; /* Lo alinea a la izquierda */
+    background-color: var(--modal); /* Azul marino medio semitransparente */
+    margin-left: 130px;
+    border-radius: 40px;
+}
+
+.p{
+    font-size: 2.5rem;
+    margin-top: 35px;
+    margin-left: 170px;
+    font-size: 30px;
+    color: var(--colo-primario);
+    font-family: 'inter';  
+    text-align: center;
+    width: 70%;
+}
+/*redes sociales*/
+.redes-sociales {
+    display: flex;
+    background-color: var(--colo-primario);
+    justify-content: space-between;
+    width: 100%;
+    height: 28%;
+    position: fixed;
+    bottom: 0;
+  }
+
+.column {
+    display: flex;
+    flex-direction: column ;
+    margin-top: 35px;
+  }
+
+.item1 {
+    display: flex;
+    margin-bottom: 10px;
+    margin-left: 70px;
+    margin-top: 5px;
+  }
+
+.item2 {
+    display: flex;
+    margin-bottom: 10px;
+    margin-left: -10px;
+    margin-top: 5px;
+}
+
+.image {
+    width: 35px; 
+    height:35px;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+
+.logo-principal img {
+    width: 150px; 
+    height: 150px;
+    margin-right: 50px;
+    margin-top: -20px;
+}
+
+.descripcion {
+    margin-top: 12px;
+    color: var(--blanco);
+    font-weight: bold; /* Aplica negrita al texto */
+    font-size: 20px;
+}
+/*-------------------------------Iniciar-Sesión.html-------------------------------*/
+.login-container {
+    display: flex;
+    background-color: #8B9AD1;
+    border-radius: 15px;
+    width: 80%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    grid-column: 2/7;
+    grid-row: 2/5;
+    margin: 0px 8%;
+    font-family: 'inter';
+    height: 100%;
+    margin-top: 40px;
+}
+.login-box {
+    background-color:var(--modal);
+    border-radius: 15px;
+    width: 65%;
+}
+.login-box form {
+    padding: 0px 80px;
+}
+.titulo-superior-movil {
+    text-align: center;
+    color: var(--colo-primario);
+    margin-top: 40px;
+    margin-bottom: 50px;
+}
+.titulo-superior-movil a img{
+    display: none;
+}
+.login-box label {
+    display: block;
+    font-size: 18px;
+    color: var(--colo-primario);
+    margin-bottom: 20px;
+}
+.login-box input {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 35px;
+    margin-top: -40px;
+    border: none; /* Elimina todos los bordes */
+    border-bottom: 1px solid var(--colo-primario); /* Solo línea inferior */
+    background-color: transparent; /* Fondo transparente */
+    outline: none;
+}
+.login-box button {
+    padding: 10px ; /* Espacio interior para los botones */
+    width: 100%;
+    font-size: 16px; /* Tamaño de fuente para los botones */
+    border: none; /* Elimina el borde predeterminado */
+    margin-top: 10px; /* Espacio por encima de los botones */
+    background-color: var(--colo-primario); /* Color de fondo inicial */
+    color: var(--blanco); /* Asegura que el texto sea visible */
+    border-radius: 20px; /* Bordes redondeados */
+}
+.t{
+    text-align: center;
+    margin-top: 10px;
+    color: var(--colo-primario);
+}
+.t a{
+    color: var(--colo-primario);
+    text-decoration: none;
+    font-weight: bold;
+}
+.small {
+    display: block;
+    margin-top: -20px;
+    margin-bottom: 5px;
+    font-size: 0.8em;
+    color: #666;
+    margin-left: 0px;
+}
+
+.icon-container {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.icon-container img {
+    width: 300px; /* Aumenta el ancho */
+    height: 400px; /* Aumenta el alto */
+}
+
+@media (max-width: 440px) {
+    /*-------------------------------Base.html-------------------------------*/
+    body{
+        padding: 29px;
+        background-size: 160% ;
+        background-position: top; /* Posiciona la imagen en la esquina superior derecha */
+    }
+    .contenedor {
+        display: block; /* Cambiar diseño a una columna */
+    }
+    /*-------------------------------barra-navegación.html-------------------------------*/
+    header {
+        text-align: right;
+    }
+    nav li {
+        margin: 0px 10px 10px 0;
+    }
+    nav li a{
+        text-shadow:
+        -0.35px -0.35px 0 white,
+         0.35px -0.35px 0 white,
+        -0.35px  0.35px 0 white,
+         0.35px  0.35px 0 white;
+    }
+    nav ul{
+        margin: 0px;
+    }
+    .contenedor-logo{
+        position:fixed;
+        height: 90px;
+        top: 0px;
+        left: 0px;
+    }
+    
+    .textos {
+        display: none;
+    }
+    /*-------------------------------botones-inferiores.html-------------------------------*/
+    .btn{
+        width: 100%;
+        margin-top: 20px;
+        height: 66px;
+    }
+    .icono-principal {
+        text-align: center;
+        margin: 47% 0 47% 0;
+    }
+    /*-------------------------------Información.html-------------------------------*/
+    .content {
+        padding: 10px; 
+        margin: 0px !important;
+    }
+
+    .sections-container {
+        grid-template-columns: 1fr !important; 
+        gap: 5px;
+    }
+
+    .section {
+        padding: 5px; 
+    }
+
+    .pie-de-pagina{
+        display: none;
+    }
+    /*-------------------------------Contacto.html---------------------------------**/
+    .texto {
+      width: 85%; /* Ajusta al ancho disponible */
+      margin: 10px auto; /* Centra horizontalmente */
+      padding: 15px 15px 0px 15px; /* Espacio interno */
+      border-radius: 10px; /* Reduce el redondeo */
+      margin-top: -110px;
+      left: 10px;
+      height: 15%;
+    }
+  .p {
+      font-size: 18px; /* Texto más pequeño */
+      text-align: center; /* Justifica el contenido */
+      margin: 4px 0; /* Espaciado vertical */
+      margin-left: 15px ;
+      width: 90%;
+  }
+
+    .redes-sociales {
+      display: flex;
+      flex-direction: column; /* Apila los elementos en una columna */
+      gap: 20px; /* Espacio entre ítems */
+      padding: 1px 0; /* Espaciado interno */
+      height: 64%;
+    }
+    .item1 {
+        margin-bottom: 10px;
+        margin-left: 20px;
+        margin-top: 5px;
+        width: 100%;
+    }
+    .item2 {
+        margin-bottom: 10px;
+        margin-left: 20px;
+        margin-top: 5px;
+        width: 100%;
+        
+    }
+    .co1{
+        margin-top: -115px;
+    }
+    .co{
+        margin-top: -22px;
+    }
+    .image {
+        width: 55px; /* Tamaño reducido de íconos */
+        height: 55px;
+    }
+    .descripcion {
+        font-size: 16px; /* Fuente más pequeña */
+        text-align: center;
+        margin-top: 20px;
+    }
+    .logo-principal{
+        margin-left: 105px;
+    }
+    .logo-principal img{
+        width: 210px;
+        height: 210px;
+        position: relative; /* O elimina position */
+        bottom: 80px; /* Margen inferior aplicado */
+    }
+  /*-------------------------------Contacto.html-------------------------------*/
+    .texto {
+        width: 85%; /* Ajusta al ancho disponible */
+        margin: 10px auto; /* Centra horizontalmente */
+        padding: 15px 15px 0px 15px; /* Espacio interno */
+        border-radius: 10px; /* Reduce el redondeo */
+        margin-top: -110px;
+        left: 10px;
+        height: 15%;
+    }
+    .p {
+        font-size: 18px; /* Texto más pequeño */
+        text-align: center; /* Justifica el contenido */
+        margin: 4px 0; /* Espaciado vertical */
+        margin-left: 15px ;
+        width: 90%;
+    }
+
+    .redes-sociales {
+        display: flex;
+        flex-direction: column; /* Apila los elementos en una columna */
+        gap: 20px; /* Espacio entre ítems */
+        padding: 1px 0; /* Espaciado interno */
+        height: 64%;
+    }
+    .item1 {
+        margin-bottom: 10px;
+        margin-left: 20px;
+        margin-top: 5px;
+        width: 100%;
+    }
+    .item2 {
+        margin-bottom: 10px;
+        margin-left: 20px;
+        margin-top: 5px;
+        width: 100%;
+    }
+    .co1{
+        margin-top: -115px;
+    }
+    .co{
+        margin-top: -22px;
+    }
+    .image {
+        width: 55px; /* Tamaño reducido de íconos */
+        height: 55px;
+    }
+    .descripcion {
+        font-size: 16px; /* Fuente más pequeña */
+        text-align: center;
+        margin-top: 20px;
+    }
+    .logo-principal{
+        margin-left: 105px;
+    }
+    .logo-principal img{
+        width: 210px;
+        height: 210px;
+        position: relative; /* O elimina position */
+        bottom: 80px; /* Margen inferior aplicado */
+    }
+    /*-------------------------------Iniciar-Sesión y registro-------------------------------*/
+    .login-container {
+        flex-direction: column; /* Cambia orientación a columna */
+        width: 100%; /* Ajusta al ancho completo */
+        height: auto; /* Ajusta altura automáticamente */
+        border-radius: 10px; /* Reduce los bordes redondeados */
+        background-color: transparent; /* Elimina el color de fondo */
+        box-shadow: none; /* Elimina la sombra */
+        margin: 0px;
+    }
+    .titulo-superior-movil {
+        display: flex;
+        top: 10px;
+        padding: 10px;
+        position: absolute;
+        margin: 0px;
+    }
+    .titulo-superior-movil a img{
+        padding: 15px 70px 0 0;
+        display: block;
+    }
+    .login-box {
+        width: 100%; /* Usa todo el ancho disponible */
+        background-color: transparent;
+    }
+
+    .login-box label, 
+    .login-box input {
+        margin-left: 0; /* Elimina el margen izquierdo */
+        width: 95%; /* Ocupa todo el ancho */
+        color: var(--colo-primario);
+    }
+
+    .login-box button {
+        color: var(--blanco);
+        margin-left: 0; /* Elimina el margen izquierdo */
+        width: 100%; /* Ocupa todo el ancho */
+        text-align: center; /* Centra el texto */
+        margin-top: 220px; /* Ajusta el margen superior */
+    }
+
+    .icon-container {
+        order: -1; /* Mueve el icon-container al principio */
+        margin: 90px 0 70px 0; /* Elimina el margen superior */
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        width: 95%; /* Asegura que ocupe todo el ancho */
+    }
+
+    .icon-container img {
+        width: 200px; /* Reduce el ancho de la imagen */
+        height: 180px; /* Ajusta la altura */
+    }
+    .small{
+        margin-top: -20px;
+        margin-bottom: 5px;
+        margin-left: 0px;
+        position: block;
+        font-size: 0.8em;
+    }
+    .login-box form {
+        padding: 0px;
+    }
+}

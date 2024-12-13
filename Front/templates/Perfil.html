@@ -1,0 +1,302 @@
+{% extends 'barra-nav-lateral.html' %}
+{% block tabla %}
+<style>
+.top-bar { /*ocultar la barra de busqueda*/ 
+    display: none; 
+}
+
+.container-perfil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.profile-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 50px;
+    border: 2px solid #000D54;
+}
+
+.user-label {
+    font-size: 45px;
+    margin-top: 20px;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 10px;
+    color: #000D54;
+}
+
+.user-label1 {
+    font-size: 25px;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 10px;
+    color: #000D54;
+}
+
+.edit-button {
+    background-color: #000D54;
+    color: white !important;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: 250px;
+    text-decoration: none;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    background-color: #939CCB;
+    margin-top: 80px;
+    padding: 15px 65px;
+    border-radius: 30px;
+    width: 70%;
+}
+
+.secondary-button {
+    background-color: #939CCB;
+    color: #000D54;
+    border: none;
+    padding: 15px 25px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 25px;
+    width: 85%;
+    text-decoration: none;
+    border-bottom: 2px solid #A3ADE2;
+}
+
+.secondary-button:last-of-type {
+    border-bottom: solid 1px #939CCB !important;
+    margin-top: -10px;
+}
+
+.button-icon {
+    width: 50px;
+    height: 40px;
+}
+
+.image, .image1 {
+    width: 20px;
+    height: auto;
+}
+
+.Cambiar-Contraseña {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal1:target, .Cambiar-Contraseña:target {
+    display: flex;
+}
+
+.modal1 {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal1 {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+.formulario-contraseña {
+    background-color: #C8CEEE;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 60%;
+    max-width: 350px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.formulario-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cancelar-button, .Guardar-button {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    border: 1px solid #000D54;
+}
+
+.cancelar-button {
+    background-color: #A3ADE2;
+    color: #000D54;
+}
+
+.Guardar-button {
+    background-color: #000D54;
+    color: white !important;
+    
+}
+
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 20px 0;
+    border: 2px solid #000D54;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #C8CEEE;
+    color: #C8CEEE;
+}
+
+input[type="text"], input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #002e66;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    color: #002e66;
+    background-color: #C8CEEE;
+    outline: none;
+}
+
+.modal-content{
+    background-color: #A3ADE2;
+    padding:30px;
+    border-radius: 30px;
+
+}
+
+@media (max-width: 440px) {
+    .container {
+        margin-left: 0;
+        margin-top: 110px;
+    }
+
+    .profile-image {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 30px;
+    }
+
+    .user-label {
+        font-size: 20px;
+    }
+
+    .user-label1 {
+        font-size: 18px;
+    }
+
+    .edit-button {
+        width: 180px;
+        font-size: 16px;
+    }
+
+    .button-group {
+        width: 80%;
+        padding: 10px 25px;
+    }
+
+    .secondary-button {
+        font-size: 16px;
+        gap: 0px;
+        background-color: transparent;
+        border-bottom: 2px solid #A3ADE2;
+        width: 80%;
+    }
+
+    .button-icon {
+        width: 40px;
+        height: 30px;
+    }
+
+    .image, .image1 {
+        width: 16px;
+    }
+
+    .formulario-contraseña {
+        width: 80%;
+    }
+
+    .modal-content {
+        font-size: 16px;
+        width: 75%;
+        margin-left: -35px;  }
+}
+</style>
+<div class="container-perfil">
+    <img class="profile-image" src="../static/image/LogoGP.png" alt="Imagen de perfil">
+    <label class="user-label" id="nombre">Usuario: {{ user.username }}</label>
+    <label class="user-label1" id="email">Correo electrónico: {{ user.email }}</label>    
+    <a href="#editProfileModal" class="edit-button">Editar perfil</a>
+
+    <div id="editProfileModal" class="modal1">
+        <div class="modal-content">
+            <form id="editProfileForm">
+                <input type="text" id="entidad" name="entidad" placeholder="Nombre de Entidad" required>
+                <input type="email" id="correo" name="correo" placeholder="Correo electrónico" required>
+                <div class="formulario-buttons">
+                    <a href="#" class="Guardar-button">Guardar</a>
+                    <a href="#" class="cancelar-button">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <form class="button-group">
+        <a class="secondary-button" href="{% url 'RegistroProducto' %}">
+            <img class="button-icon" src="../static/image/Mi-Producto-Perfil.svg" >Mi producto
+            <img class="image" src="../static/image/flecha-pequeña.svg" alt="">
+        </a>
+
+        <a href="#modal" class="secondary-button">
+            <img class="button-icon" src="../static/image/contraseña.svg">Contraseña
+            <img class="image1" src="../static/image/flecha-pequeña.svg" alt="">
+        </a>
+
+        <div id="modal" class="Cambiar-Contraseña">
+            <div class="formulario-contraseña">
+                <form>
+                    <input type="password" placeholder="Nueva contraseña" required>
+                    <div class="formulario-buttons">
+                        <a href="#" class="Guardar-button">Guardar</a>
+                        <a href="#" class="cancelar-button">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,439 @@
+/* Definición de variables de colores y estilos globales */
+:root {
+    --primary-color: #000D54;
+    --table-color: rgba(248, 251, 255, 0.8);
+    --background-color: #A3ADE2;
+    --text-color: #000D54;
+}
+/*fuentes*/
+@font-face {
+    font-family: 'inter-bold';
+    src: url(../fonts/Inter_24pt-SemiBold.ttf);
+}
+@font-face {
+    font-family: 'inter';
+    src: url(../fonts/Inter_24pt-Regular.ttf);
+}
+/* Reset de estilos básicos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+a{
+    text-decoration: none;
+}
+a:visited {
+    color: inherit; /* No cambia el color después de haber visitado el enlace */
+}
+/* Estilos generales del body */
+body {
+    font-family: 'inter';
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Contenedor principal con grid */
+.container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    min-height: 100vh;
+    background-color: var(--background-color);
+}
+
+/* Estado colapsado de la barra lateral */
+.sidebar.collapsed {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Estilos de la barra de búsqueda */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #455191;
+    border-radius: 25px;
+    padding: 0.5rem 1rem;
+    width: 400px;
+    margin-left: auto;
+    position: relative;
+}
+
+.search-bar input {
+    border: none;
+    width: 100%;
+    padding: 0.5rem 0.5rem 0.5rem 40px;
+    outline: none;
+    background-color: #f4f4f6;
+    
+}
+
+.search-bar button {
+    position: absolute;
+    left: 1170px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Botón de búsqueda */
+
+.logo-img {
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+/* Barra lateral */
+.sidebar {
+    background-color: var(--primary-color);
+    padding: 1rem;
+    width: 230px;
+    transition: width 0.3s ease;
+}
+
+/* Estado expandido de la barra lateral */
+.sidebar.expanded {
+    width: 200px;
+}
+
+/* Menú de navegación */
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 200px;
+}
+
+.menu-icon {
+    width: 100px;
+    height: 100px;
+    fill: currentColor;
+}
+
+/* Botón de toggle del menú */
+.menu-toggle {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+/* Elementos del menú */
+.menu-item {
+    width: calc(100% - 60px);
+    padding: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 0 1px;
+    height: 120px;  /* Larger background height */
+    width: 200px;
+}
+
+/* Iconos del menú */
+.menu-item i {
+    font-size: 4.8rem;  
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    width: 100%;
+}
+
+/* Efecto hover en elementos del menú */
+.menu-item:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Enlaces del menú */
+.menu a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Barra superior */
+.top-bar {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+    background-color: #455191;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.search-bar {
+    display: flex;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    border-radius: 20px;
+}
+
+/* Botones de acción principales */
+.action-buttons {
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;  
+}
+
+/* Estilos comunes para botones de acción */
+.add-button, .view-button, .delete-all-button {
+    background-color: white;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;  /* Makes corners rounded */
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Botón de eliminar */
+.delete-all-button {
+    border-color: #FF0000;
+    color: #FF0000;
+}
+
+/* Efectos hover en botones */
+.add-button:hover, .view-button:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.delete-all-button:hover {
+    background-color: #FF0000;
+    color: white;
+}
+
+.action-buttons i {
+    font-size: 1.1rem;
+}
+
+/* Contenedor de tabla */
+.table-container {
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+/* Estilos de la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--table-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+/* Celdas de la tabla */
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.add-button, .view-button, .edit-button, .delete-button {
+    background-color: white;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 0.8rem 1.5rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.add-button:hover, .view-button:hover, .edit-button:hover, .delete-button:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Botones de edición y eliminación en tabla */
+.edit-button, .delete-button {
+    padding: 0.5rem;
+    margin: 0 0.25rem;
+}
+
+.edit-button {
+    background-color: #f39c12;
+    color: white;
+}
+
+.delete-button {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.search-bar button i {
+    font-size: 18px;  /* icono de busqueda en desktop */
+}
+
+/* Media queries para dispositivos móviles */
+@media (max-width: 440px) {
+    .search-bar button i {
+        font-size: 20px;  /* Largo del tamño del icono de busqueda */
+    }   
+    /* Ajustes de contenedores */
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .top-bar {
+        background-color: #000D54;
+        box-shadow: none;
+        padding: 1rem 0.5rem;
+    }
+
+    /* Principales ajustes de contenido */
+    .main-content {
+        padding-bottom: 70px;
+    }
+
+    /* Ocultar logotipo y alternar menú */
+    .logo, .menu-toggle {
+        display: none;
+    }
+
+    /* Barra lateral/Ajustes de menú */
+    .sidebar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        padding: 0;
+        z-index: 1000;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .sidebar.collapsed {
+        width: 100%;
+        padding: 0;
+        overflow: visible;
+    }
+
+    /* Ajustes del menú */
+    .menu {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        height: 100%;
+        gap: 0;
+        background-color: #000D54;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        padding: 12px 0;
+    }
+
+    .menu-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .menu-item {
+        width: auto;
+        height: 100%;
+        padding: 0.8rem;
+        margin: 0;
+        margin-bottom: 6px;
+        background-color: transparent;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .menu-item i {
+        font-size: 1.5rem;
+    }
+
+    /* Ajustes de la barra de búsqueda */
+    .search-bar {
+        width: 389px;
+        height: 70px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+    }
+
+    .search-bar input { 
+        width: 100%;
+        height: 40px;
+        padding: 8px 30px;
+        font-size: 14px;
+    }
+
+    .search-bar button {
+        left: 485px;  /* Reset position for mobile */
+        color: var(--primary-color);
+    }
+
+    /* Ajustes de los botones de acción */
+    .action-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* Ajustes de mesa */
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .menu a::after {
+        content: attr(data-label);
+        display: block;
+        font-size: 0.7rem;
+        text-align: center;
+        color: white;
+        margin-top: 4px;
+    }
+    .menu a i {
+        transition: color 0.3s ease;
+    }
+
+    .menu a.active i {
+        color: #8799FB;
+    }
+    /* Estilos de la barra de búsqueda */
+    .search-bar {
+    background-color: var(--primary-color);
+    }
+}
+@media (max-width: 440px) {
+    .menu-icon-desktop {
+        display: none;
+    }
+    
+    .menu-icon-mobile {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (min-width: 440px) {
+    .menu-icon-mobile {
+        display: none;
+    }
+}
+
+
+
+
+

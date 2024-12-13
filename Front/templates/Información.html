@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block mi-contenido %}
+    {% include 'barra-navegación.html' %}   
+    <div class="content">
+        <h2>INFORMACIÓN</h2>
+        <div  class="sections-container">
+            <div class="section">
+                <img src="../static/image/historia.png" alt="HISTORIA">
+                <h3 class="section-title">HISTORIA</h3>
+                <p class="description">
+                    Este sistema nació para resolver los desafíos en la gestión de proveedores. Nuestro equipo de
+                    desarrolladores creó una plataforma intuitiva que centraliza y optimiza operaciones, mejorando la
+                    eficiencia y las relaciones comerciales.
+                </p>
+            </div>
+            <div class="section">
+                <img src="../static/image/beneficios.png" alt="BENEFICIOS">
+                <h3 class="section-title">BENEFICIOS</h3>
+                <p class="description">
+                    Nuestra plataforma ofrece múltiples beneficios clave, como la sistematización de procesos que
+                    reducen tareas manuales y minimizan errores humanos con la finalidad de brindar información precisa
+                    para la toma de decisiones.
+                </p>
+            </div>
+            <div class="section">
+                <img src="../static/image/funcionalidad.png" alt="FUNCIONALIDAD">
+                <h3 class="section-title">FUNCIONALIDAD</h3>
+                <p class="description">
+                    Ofrecemos una plataforma para gestionar proveedores con evaluación de calidad de productos, selección
+                    de compras y pagos realizados y/o por realizar brindando grandes opciones de gestión de pagos dentro
+                    del sistema.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

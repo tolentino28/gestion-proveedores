@@ -1,0 +1,14 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/head-titulo-flecha.css' %}">
+<link rel="stylesheet" href="{% static 'css/general.css' %}">
+<div class="container-titulo">
+   
+    <div class="arrow">
+        <a href="javascript:history.back()">
+            <img  src="{% static 'image/Flecha.svg' %}" alt="">
+        </a>
+        
+    </div>
+    <div class="text">{{tituloHead}}</div>
+
+</div>
